@@ -57,18 +57,21 @@
     border-radius: 18px;
     padding: 18px;
     display: grid;
-    grid-template-columns: 72px 1fr;
+    grid-template-columns: 96px 1fr;
     gap: 14px;
     align-items: center;
     margin-bottom: 14px;
   }
   .thumb {
-    width: 72px; height: 72px; border-radius: 50%;
-    background: radial-gradient(circle at 50% 60%, #fff3b0 0%, #ffc24a 38%, #ff7a3d 68%, #b8322a 100%);
-    box-shadow: 0 0 24px rgba(255, 170, 60, .45);
+    display: block;
+    width: 96px; height: 96px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    object-fit: cover;
   }
-  .hook { font-size: 13px; color: var(--muted); margin: 0 0 2px; }
-  .name { font-size: 17px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .hook { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
+  .name { font-size: 17px; font-weight: 700; margin: 0; letter-spacing: -0.01em; word-break: keep-all; }
   .btn {
     display: block;
     grid-column: 1 / -1;
@@ -95,10 +98,15 @@
   <p class="notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
 
   <section id="list">
-    <!-- 제품 추가: 아래 PRODUCTS 배열에 한 줄씩 넣으면 카드가 생깁니다 (최신 영상을 맨 위에) -->
+    <!-- 제품 추가: 사진을 img/ 에 넣고 아래 PRODUCTS 배열에 한 줄씩 넣으면 카드가 생깁니다 (최신 영상을 맨 위에) -->
     <noscript>
       <div class="card">
-        <div class="thumb" aria-hidden="true"></div>
+        <img class="thumb" src="img/thexlab_mini.jpg" alt="더비랩 핸드폰 감옥 타이머 락박스" width="96" height="96">
+        <div><p class="hook">안 열리는 통이 요즘 대박 난 이유</p><p class="name">더비랩 핸드폰 감옥 타이머 락박스</p></div>
+        <a class="btn" href="https://link.coupang.com/a/hnWBfeZLWe" rel="sponsored nofollow noopener" target="_blank">쿠팡에서 보기</a>
+      </div>
+      <div class="card">
+        <img class="thumb" src="img/philips_hf3520.jpg" alt="필립스 웨이크업 라이트 HF3520" width="96" height="96">
         <div><p class="hook">안 시끄러운 알람시계가 업계 1황인 이유</p><p class="name">필립스 웨이크업 라이트 HF3520</p></div>
         <a class="btn" href="https://link.coupang.com/a/hiSdwoyAE0" rel="sponsored nofollow noopener" target="_blank">쿠팡에서 보기</a>
       </div>
@@ -112,12 +120,14 @@
     {
       hook: "안 열리는 통이 요즘 대박 난 이유",
       name: "더비랩 핸드폰 감옥 타이머 락박스",
+      image: "img/thexlab_mini.jpg",
       url: "https://link.coupang.com/a/hnWBfeZLWe",
       button: "쿠팡에서 보기"
     },
     {
       hook: "안 시끄러운 알람시계가 업계 1황인 이유",
       name: "필립스 웨이크업 라이트 HF3520",
+      image: "img/philips_hf3520.jpg",
       url: "https://link.coupang.com/a/hiSdwoyAE0",
       button: "쿠팡에서 보기"
     }
@@ -128,9 +138,12 @@
     const card = document.createElement("article");
     card.className = "card";
     card.innerHTML =
-      '<div class="thumb" aria-hidden="true"></div>' +
+      '<img class="thumb" width="96" height="96" loading="lazy">' +
       '<div><p class="hook"></p><p class="name"></p></div>' +
       '<a class="btn" rel="sponsored nofollow noopener" target="_blank"></a>';
+    const img = card.querySelector(".thumb");
+    img.src = p.image;
+    img.alt = p.name;
     card.querySelector(".hook").textContent = p.hook;
     card.querySelector(".name").textContent = p.name;
     const a = card.querySelector(".btn");
